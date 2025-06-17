@@ -7,6 +7,8 @@ import ExperienceForm from './pages/ExperienceForm';
 import CourseForm from './pages/CourseForm';
 import AdminRoleForm from './pages/AdminRoleForm';
 import MembershipForm from './pages/MembershipForm';
+import PublicationForm from './pages/PublicationForm';
+import ProjectForm from './pages/ProjectForm';
 
 const PrivateRoute = ({ children }) => {
   const token = localStorage.getItem('jwt');
@@ -51,6 +53,16 @@ function App() {
         <Route path="/dashboard/memberships" element={
           <PrivateRoute>
             <MembershipForm />
+          </PrivateRoute>
+        } />
+        <Route path="/dashboard/publications" element={
+          <PrivateRoute>
+            <PublicationForm />
+          </PrivateRoute>
+        } />
+        <Route path="/dashboard/projects" element={
+          <PrivateRoute>
+            <ProjectForm />
           </PrivateRoute>
         } />
       </Routes>
