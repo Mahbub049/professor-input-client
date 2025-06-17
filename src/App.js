@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
+import ProfileForm from './pages/ProfileForm';
+import EducationForm from './pages/EducationForm';
 
 const PrivateRoute = ({ children }) => {
   const token = localStorage.getItem('jwt');
@@ -15,6 +17,16 @@ function App() {
         <Route path="/dashboard" element={
           <PrivateRoute>
             <Dashboard />
+          </PrivateRoute>
+        } />
+        <Route path="/dashboard/profile" element={
+          <PrivateRoute>
+            <ProfileForm />
+          </PrivateRoute>
+        } />
+        <Route path="/dashboard/education" element={
+          <PrivateRoute>
+            <EducationForm />
           </PrivateRoute>
         } />
       </Routes>
