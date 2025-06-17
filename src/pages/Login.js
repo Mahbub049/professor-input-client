@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../auth/firebase';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -16,6 +18,25 @@ const Login = () => {
     } catch (err) {
       setError(err.message);
     }
+    const token = await auth.currentUser.getIdToken();
+const response = await fetch('http://localhost:5000/api/auth/login', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ idToken: token }),
+});
+
+const data = await response.json();
+if (data.jwt) {
+localStorage.setItem('jwt', data.jwt);
+navigate('/dashboard');
+  // redirect later
+} else {
+  setError("JWT Token not received");
+}
+
+
+
+
   };
 
   return (
