@@ -19,7 +19,6 @@ const Dashboard = () => {
   return (
     <div className="p-10 text-center">
       <h1 className="text-2xl font-bold">Dashboard</h1>
-      <p className="mt-4 text-blue-600">{message}</p>
     </div>
   );
 };

@@ -4,11 +4,12 @@ import axiosInstance from '../utils/axiosInstance';
 export default function ProjectForm() {
   const [form, setForm] = useState({
     title: '',
-    description: '',
-    tools: '',
-    role: '',
-    status: ''
+    status: 'Ongoing',
+    fundingSource: '',
+    grantingBody: '',
+    notes: ''
   });
+
   const [entries, setEntries] = useState([]);
 
   const fetchProjects = async () => {
@@ -25,7 +26,13 @@ export default function ProjectForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await axiosInstance.post('/projects', form);
-    setForm({ title: '', description: '', tools: '', role: '', status: '' });
+    setForm({
+      title: '',
+      status: 'Ongoing',
+      fundingSource: '',
+      grantingBody: '',
+      notes: ''
+    });
     fetchProjects();
   };
 
@@ -38,16 +45,43 @@ export default function ProjectForm() {
     <div className="p-6 max-w-4xl mx-auto">
       <h2 className="text-xl font-bold mb-4">Add Project</h2>
       <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {['title', 'description', 'tools', 'role', 'status'].map((field) => (
-          <input
-            key={field}
-            name={field}
-            placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
-            value={form[field]}
-            onChange={handleChange}
-            className="p-2 border rounded"
-          />
-        ))}
+        <input
+          name="title"
+          placeholder="Title"
+          value={form.title}
+          onChange={handleChange}
+          className="p-2 border rounded"
+        />
+        <select
+          name="status"
+          value={form.status}
+          onChange={handleChange}
+          className="p-2 border rounded"
+        >
+          <option value="Ongoing">Ongoing</option>
+          <option value="Completed">Completed</option>
+        </select>
+        <input
+          name="fundingSource"
+          placeholder="Funding Source"
+          value={form.fundingSource}
+          onChange={handleChange}
+          className="p-2 border rounded"
+        />
+        <input
+          name="grantingBody"
+          placeholder="Granting Body (optional)"
+          value={form.grantingBody}
+          onChange={handleChange}
+          className="p-2 border rounded"
+        />
+        <input
+          name="notes"
+          placeholder="Notes (optional)"
+          value={form.notes}
+          onChange={handleChange}
+          className="p-2 border rounded col-span-2"
+        />
         <button className="col-span-2 bg-blue-600 text-white py-2 rounded" type="submit">
           Add Project
         </button>
@@ -59,9 +93,10 @@ export default function ProjectForm() {
           <li key={proj._id} className="border p-4 flex justify-between items-start">
             <div>
               <p className="font-bold">{proj.title}</p>
-              <p className="text-sm italic">{proj.description}</p>
-              <p><strong>Tools:</strong> {proj.tools}</p>
-              <p><strong>Role:</strong> {proj.role} | <strong>Status:</strong> {proj.status}</p>
+              <p><strong>Status:</strong> {proj.status}</p>
+              <p><strong>Funding:</strong> {proj.fundingSource}</p>
+              {proj.grantingBody && <p><strong>Granting Body:</strong> {proj.grantingBody}</p>}
+              {proj.notes && <p><strong>Notes:</strong> {proj.notes}</p>}
             </div>
             <button onClick={() => handleDelete(proj._id)} className="text-red-500">Delete</button>
           </li>

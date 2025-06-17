@@ -1,6 +1,11 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate
+} from "react-router-dom";
+
 import Login from './pages/Login';
-import Dashboard from './pages/Dashboard';
 import ProfileForm from './pages/ProfileForm';
 import EducationForm from './pages/EducationForm';
 import ExperienceForm from './pages/ExperienceForm';
@@ -9,7 +14,10 @@ import AdminRoleForm from './pages/AdminRoleForm';
 import MembershipForm from './pages/MembershipForm';
 import PublicationForm from './pages/PublicationForm';
 import ProjectForm from './pages/ProjectForm';
+import DashboardLayout from './components/DashboardLayout'; // 🆕 import this
+import SkillForm from './pages/SkillForm';
 
+// 🔐 PrivateRoute wrapper
 const PrivateRoute = ({ children }) => {
   const token = localStorage.getItem('jwt');
   return token ? children : <Navigate to="/" />;
@@ -19,52 +27,25 @@ function App() {
   return (
     <Router>
       <Routes>
+        {/* Public Route */}
         <Route path="/" element={<Login />} />
+
+        {/* Protected Dashboard Layout */}
         <Route path="/dashboard" element={
           <PrivateRoute>
-            <Dashboard />
+            <DashboardLayout />
           </PrivateRoute>
-        } />
-        <Route path="/dashboard/profile" element={
-          <PrivateRoute>
-            <ProfileForm />
-          </PrivateRoute>
-        } />
-        <Route path="/dashboard/education" element={
-          <PrivateRoute>
-            <EducationForm />
-          </PrivateRoute>
-        } />
-        <Route path="/dashboard/experience" element={
-          <PrivateRoute>
-            <ExperienceForm />
-          </PrivateRoute>
-        } />
-        <Route path="/dashboard/courses" element={
-          <PrivateRoute>
-            <CourseForm />
-          </PrivateRoute>
-        } />
-        <Route path="/dashboard/admin-roles" element={
-          <PrivateRoute>
-            <AdminRoleForm />
-          </PrivateRoute>
-        } />
-        <Route path="/dashboard/memberships" element={
-          <PrivateRoute>
-            <MembershipForm />
-          </PrivateRoute>
-        } />
-        <Route path="/dashboard/publications" element={
-          <PrivateRoute>
-            <PublicationForm />
-          </PrivateRoute>
-        } />
-        <Route path="/dashboard/projects" element={
-          <PrivateRoute>
-            <ProjectForm />
-          </PrivateRoute>
-        } />
+        }>
+          <Route path="profile" element={<ProfileForm />} />
+          <Route path="education" element={<EducationForm />} />
+          <Route path="experience" element={<ExperienceForm />} />
+          <Route path="courses" element={<CourseForm />} />
+          <Route path="admin-roles" element={<AdminRoleForm />} />
+          <Route path="memberships" element={<MembershipForm />} />
+          <Route path="publications" element={<PublicationForm />} />
+          <Route path="projects" element={<ProjectForm />} />
+          <Route path="skills" element={<SkillForm />} />
+        </Route>
       </Routes>
     </Router>
   );
