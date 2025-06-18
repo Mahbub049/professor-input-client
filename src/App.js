@@ -16,6 +16,7 @@ import PublicationForm from './pages/PublicationForm';
 import ProjectForm from './pages/ProjectForm';
 import DashboardLayout from './components/DashboardLayout'; // 🆕 import this
 import SkillForm from './pages/SkillForm';
+import AchievementForm from "./pages/AchievementForm";
 
 // 🔐 PrivateRoute wrapper
 const PrivateRoute = ({ children }) => {
@@ -42,6 +43,7 @@ function App() {
           <Route path="courses" element={<CourseForm />} />
           <Route path="admin-roles" element={<AdminRoleForm />} />
           <Route path="memberships" element={<MembershipForm />} />
+          <Route path="achievements" element={<AchievementForm />} />
           <Route path="publications" element={<PublicationForm />} />
           <Route path="projects" element={<ProjectForm />} />
           <Route path="skills" element={<SkillForm />} />
