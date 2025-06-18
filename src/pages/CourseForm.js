@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axiosInstance from '../utils/axiosInstance';
+import Swal from 'sweetalert2';
 
 export default function CourseForm() {
   const [form, setForm] = useState({

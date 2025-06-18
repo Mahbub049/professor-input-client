@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axiosInstance from '../utils/axiosInstance';
 import ReactPaginate from 'react-paginate';
+import Swal from 'sweetalert2'
 
 export default function PublicationForm() {
   const [form, setForm] = useState({
