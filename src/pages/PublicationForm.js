@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axiosInstance from '../utils/axiosInstance';
-import ReactPaginate from 'react-paginate'; 
+import ReactPaginate from 'react-paginate';
 
 export default function PublicationForm() {
   const [form, setForm] = useState({
@@ -17,20 +17,20 @@ export default function PublicationForm() {
   });
   const [entries, setEntries] = useState([]);
   const [activeTab, setActiveTab] = useState('journal');
-const [currentPage, setCurrentPage] = useState(0);
-const itemsPerPage = 10;
+  const [currentPage, setCurrentPage] = useState(0);
+  const itemsPerPage = 10;
 
-// Filtered data by active tab
-const filtered = entries.filter(pub => pub.category === activeTab);
+  // Filtered data by active tab
+  const filtered = entries.filter(pub => pub.category === activeTab);
 
-// Paginated data
-const offset = currentPage * itemsPerPage;
-const currentItems = filtered.slice(offset, offset + itemsPerPage);
-const pageCount = Math.ceil(filtered.length / itemsPerPage);
+  // Paginated data
+  const offset = currentPage * itemsPerPage;
+  const currentItems = filtered.slice(offset, offset + itemsPerPage);
+  const pageCount = Math.ceil(filtered.length / itemsPerPage);
 
-const handlePageClick = ({ selected }) => {
-  setCurrentPage(selected);
-};
+  const handlePageClick = ({ selected }) => {
+    setCurrentPage(selected);
+  };
 
   const fetchPublications = async () => {
     const res = await axiosInstance.get('/publications');
@@ -57,6 +57,11 @@ const handlePageClick = ({ selected }) => {
       chapterTitle: '',
       isbn: '',
       publisher: ''
+    });
+    Swal.fire({
+      title: "Publication Added!",
+      text: "Information has been updated!",
+      icon: "success"
     });
     fetchPublications();
   };
@@ -173,55 +178,55 @@ const handlePageClick = ({ selected }) => {
 
       <h3 className="mt-8 font-semibold text-lg">All Publications</h3>
 
-          {/* Tabs */}
-    <div className="flex justify-center mt-8 space-x-4">
-      {['journal', 'conference', 'book'].map(type => (
-        <button
-          key={type}
-          onClick={() => {
-            setActiveTab(type);
-            setCurrentPage(0); // reset page
-          }}
-          className={`px-4 py-2 rounded ${activeTab === type ? 'bg-green-600 text-white' : 'bg-gray-200 text-black'}`}
-        >
-          {type.charAt(0).toUpperCase() + type.slice(1)}s
-        </button>
-      ))}
-    </div>
-
-          {/* Publications List */}
-    <ul className="mt-6 space-y-3">
-      {currentItems.map(pub => (
-        <li key={pub._id} className="border p-4 shadow-sm">
-          <p><strong>{pub.title}</strong> – {pub.source} ({pub.year})</p>
-          <p className="text-sm text-gray-600">By: {pub.authors}</p>
-          <p className="text-sm">DOI: {pub.doi || 'N/A'}</p>
-          {pub.location && <p className="text-sm">Location: {pub.location}</p>}
-          {pub.chapterTitle && <p className="text-sm">Chapter: {pub.chapterTitle}</p>}
-          {pub.publisher && <p className="text-sm">Publisher: {pub.publisher}</p>}
-          {pub.isbn && <p className="text-sm">ISBN: {pub.isbn}</p>}
-          <button onClick={() => handleDelete(pub._id)} className="text-red-500 mt-1">Delete</button>
-        </li>
-      ))}
-    </ul>
-
-    {/* Pagination */}
-    {pageCount > 1 && (
-      <div className="mt-6 flex justify-center">
-        <ReactPaginate
-          previousLabel={"← Previous"}
-          nextLabel={"Next →"}
-          breakLabel={"..."}
-          pageCount={pageCount}
-          marginPagesDisplayed={1}
-          pageRangeDisplayed={2}
-          onPageChange={handlePageClick}
-          containerClassName={"flex space-x-2"}
-          pageClassName={"px-3 py-1 border rounded"}
-          activeClassName={"bg-green-600 text-white"}
-        />
+      {/* Tabs */}
+      <div className="flex justify-center mt-8 space-x-4">
+        {['journal', 'conference', 'book'].map(type => (
+          <button
+            key={type}
+            onClick={() => {
+              setActiveTab(type);
+              setCurrentPage(0); // reset page
+            }}
+            className={`px-4 py-2 rounded ${activeTab === type ? 'bg-green-600 text-white' : 'bg-gray-200 text-black'}`}
+          >
+            {type.charAt(0).toUpperCase() + type.slice(1)}s
+          </button>
+        ))}
       </div>
-    )}
+
+      {/* Publications List */}
+      <ul className="mt-6 space-y-3">
+        {currentItems.map(pub => (
+          <li key={pub._id} className="border p-4 shadow-sm">
+            <p><strong>{pub.title}</strong> – {pub.source} ({pub.year})</p>
+            <p className="text-sm text-gray-600">By: {pub.authors}</p>
+            <p className="text-sm">DOI: {pub.doi || 'N/A'}</p>
+            {pub.location && <p className="text-sm">Location: {pub.location}</p>}
+            {pub.chapterTitle && <p className="text-sm">Chapter: {pub.chapterTitle}</p>}
+            {pub.publisher && <p className="text-sm">Publisher: {pub.publisher}</p>}
+            {pub.isbn && <p className="text-sm">ISBN: {pub.isbn}</p>}
+            <button onClick={() => handleDelete(pub._id)} className="text-red-500 mt-1">Delete</button>
+          </li>
+        ))}
+      </ul>
+
+      {/* Pagination */}
+      {pageCount > 1 && (
+        <div className="mt-6 flex justify-center">
+          <ReactPaginate
+            previousLabel={"← Previous"}
+            nextLabel={"Next →"}
+            breakLabel={"..."}
+            pageCount={pageCount}
+            marginPagesDisplayed={1}
+            pageRangeDisplayed={2}
+            onPageChange={handlePageClick}
+            containerClassName={"flex space-x-2"}
+            pageClassName={"px-3 py-1 border rounded"}
+            activeClassName={"bg-green-600 text-white"}
+          />
+        </div>
+      )}
     </div>
   );
 }

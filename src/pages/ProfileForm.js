@@ -64,7 +64,11 @@ export default function ProfileForm() {
         try {
             console.log("Submitting form:", form);
             await axiosInstance.post('/profile', form);
-            setMessage('Profile saved successfully!');
+            Swal.fire({
+                title: "Profile Updated!",
+                text: "Information has been updated!",
+                icon: "success"
+            });
         } catch (err) {
             console.error(err);
             setMessage('Error saving profile.');

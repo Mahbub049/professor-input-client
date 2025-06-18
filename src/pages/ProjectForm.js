@@ -33,6 +33,11 @@ export default function ProjectForm() {
       grantingBody: '',
       notes: ''
     });
+    Swal.fire({
+      title: "Project Added!",
+      text: "Information has been updated!",
+      icon: "success"
+    });
     fetchProjects();
   };
 

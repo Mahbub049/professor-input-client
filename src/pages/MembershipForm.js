@@ -20,6 +20,11 @@ export default function MembershipForm() {
     e.preventDefault();
     await axiosInstance.post('/memberships', form);
     setForm({ name: '', memberId: '' });
+    Swal.fire({
+      title: "Membership Added!",
+      text: "Information has been updated!",
+      icon: "success"
+    });
     fetchMemberships();
   };
 

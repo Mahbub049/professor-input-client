@@ -15,7 +15,7 @@ const Login = () => {
         try {
             await signInWithEmailAndPassword(auth, email, password);
             Swal.fire({
-                title: "Education Added!",
+                title: "Login Sucessful",
                 text: "Information has been updated!",
                 icon: "success"
             });

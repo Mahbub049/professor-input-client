@@ -27,6 +27,11 @@ export default function AdminRoleForm() {
     e.preventDefault();
     await axiosInstance.post('/admin-roles', form);
     setForm({ title: '', departmentOrEvent: '', roleType: 'Committee', from: '', to: '', notes: '' });
+    Swal.fire({
+      title: "Role Added!",
+      text: "Information has been updated!",
+      icon: "success"
+    });
     fetchRoles();
   };
 

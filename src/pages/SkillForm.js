@@ -24,6 +24,11 @@ export default function SkillForm() {
     e.preventDefault();
     await axiosInstance.post('/skills', form);
     setForm({ category: 'Language', skillName: '', description: '' });
+    Swal.fire({
+      title: "Skill Added!",
+      text: "Information has been updated!",
+      icon: "success"
+    });
     fetchSkills();
   };
 

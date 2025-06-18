@@ -26,6 +26,11 @@ export default function CourseForm() {
     e.preventDefault();
     await axiosInstance.post('/courses', form);
     setForm({ courseName: '', program: 'ICE', remarks: '' });
+    Swal.fire({
+      title: "Course Added!",
+      text: "Information has been updated!",
+      icon: "success"
+    });
     fetchCourses();
   };
 

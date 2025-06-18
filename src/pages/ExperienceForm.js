@@ -47,6 +47,11 @@ export default function ExperienceForm() {
       remarks: ''
     });
     setIsCurrentlyWorking(false);
+    Swal.fire({
+      title: "Experience Added!",
+      text: "Information has been updated!",
+      icon: "success"
+    });
     fetchExperience();
   };
 
