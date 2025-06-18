@@ -16,6 +16,7 @@ export default function DashboardLayout() {
     { to: 'courses', label: 'Courses' },
     { to: 'admin-roles', label: 'Admin Roles' },
     { to: 'memberships', label: 'Memberships' },
+    { to: 'achievements', label: 'Achievements' },
     { to: 'skills', label: 'Skills' },
     { to: 'publications', label: 'Publications' },
     { to: 'projects', label: 'Projects' }
