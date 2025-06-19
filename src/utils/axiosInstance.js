@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'https://nasir-server.onrender.com/api',
+  baseURL: 'https://professor-input-server-production.up.railway.app/api',
 });
 
 axiosInstance.interceptors.request.use((config) => {
