@@ -8,12 +8,15 @@ export default function ProfileForm() {
         image: '',
         designation: '',
         organization: '',
+        department: '',      // ✅ New
+        overview: '',        // ✅ New
         phones: [''],
         emails: [''],
         googleScholar: '',
         researchGate: '',
         interests: ['']
     });
+
 
     const [message, setMessage] = useState('');
 
@@ -84,6 +87,13 @@ export default function ProfileForm() {
                 <input name="name" placeholder="Full Name" className="w-full p-2 border rounded" value={form.name} onChange={handleChange} />
                 <input name="designation" placeholder="Designation" className="w-full p-2 border rounded" value={form.designation} onChange={handleChange} />
                 <input name="organization" placeholder="Organization" className="w-full p-2 border rounded" value={form.organization} onChange={handleChange} />
+                <input
+                    name="department"
+                    placeholder="Department"
+                    className="w-full p-2 border rounded"
+                    value={form.department || ''}
+                    onChange={handleChange}
+                />
 
                 <div>
                     <label className="font-semibold">Upload Image:</label>
@@ -118,6 +128,15 @@ export default function ProfileForm() {
                     ))}
                     <button type="button" className="text-blue-600" onClick={() => addField('interests')}>+ Add Interest</button>
                 </div>
+
+                <textarea
+                    name="overview"
+                    placeholder="Brief Overview"
+                    rows={4}
+                    className="w-full p-2 border rounded"
+                    value={form.overview || ''}
+                    onChange={handleChange}
+                />
 
                 <button type="submit" className="bg-blue-600 text-white py-2 px-4 rounded">Save Profile</button>
             </form>
